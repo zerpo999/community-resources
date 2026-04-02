@@ -43,9 +43,10 @@ const Index = () => {
       <Header isDark={isDark} onToggleDark={toggle} />
 
       <main className="flex-1">
-        {/* Hero section */}
+        {/* main section */}
         <section className="border-b border-border bg-card px-4 pb-8 pt-10 sm:pb-12 sm:pt-14">
           <div className="mx-auto max-w-2xl text-center">
+            <img src="/icon.png" alt="Logo" className="mx-auto mb-4 h-20 w-20" />
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -59,8 +60,7 @@ const Index = () => {
               transition={{ delay: 0.1 }}
               className="mb-6 text-muted-foreground"
             >
-              Search local community resources — food, healthcare, housing, and more.
-            </motion.p>
+              Search local community resources            </motion.p>
             <SearchBar onSearch={handleSearch} isLoading={isLoading} />
           </div>
         </section>
@@ -107,7 +107,7 @@ const Index = () => {
       <footer className="border-t border-border bg-card px-4 py-6">
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Heart className="h-4 w-4 text-primary" />
+            <img src="/icon.png" alt="Logo" className="h-5 w-5" />
             Community Resource App
           </div>
           <SuggestForm />
