@@ -16,14 +16,14 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 14%;
 
-    --primary: 174 62% 38%;
+    --primary: 214 62% 43%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 40 15% 92%;
     --secondary-foreground: 220 20% 14%;
 
     --muted: 40 10% 94%;
-    --muted-foreground: 220 10% 46%;
+    --muted-foreground: 220 10% 40%;
 
     --accent: 174 50% 94%;
     --accent-foreground: 174 62% 28%;
@@ -48,8 +48,9 @@
 
     /* Custom tokens */
     --surface-elevated: 0 0% 100%;
-    --category-bg: 174 50% 96%;
-    --category-hover: 174 50% 90%;
+    --category-bg: 214, 62%, 43%;
+    --category-hover: 214 62% 53%;
+    --lighter-category-color: 220 10% 88%;
     --success: 152 60% 40%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
@@ -66,7 +67,7 @@
     --popover: 220 18% 14%;
     --popover-foreground: 40 15% 92%;
 
-    --primary: 174 62% 45%;
+    --primary: 214 62% 43%;
     --primary-foreground: 220 20% 10%;
 
     --secondary: 220 15% 18%;
@@ -86,8 +87,8 @@
     --ring: 174 62% 45%;
 
     --surface-elevated: 220 18% 16%;
-    --category-bg: 174 30% 16%;
-    --category-hover: 174 30% 22%;
+    --category-bg: 214, 62%, 43%;
+    --category-hover: 214 62% 53%;
     --success: 152 60% 45%;
     --success-foreground: 220 20% 10%;
     --warning: 38 92% 55%;

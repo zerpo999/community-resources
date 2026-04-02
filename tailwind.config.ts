@@ -53,6 +53,7 @@ export default {
         "surface-elevated": "hsl(var(--surface-elevated))",
         "category-bg": "hsl(var(--category-bg))",
         "category-hover": "hsl(var(--category-hover))",
+        "lighter-category-color": "hsl(var(--lighter-category-color))",
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",

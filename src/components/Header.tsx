@@ -48,7 +48,7 @@ const Header = ({ isDark, onToggleDark }: HeaderProps) => {
           <Button
             onClick={cycleZoom}
             variant="header"
-            className="rounded-full flex items-center gap-2"
+            className="rounded-full flex items-center gap-2 hover:bg-[hsl(214_62%_53%)] hover:text-white"
           >
             {/* Icon changes at max zoom */}
             {zoomLevel === MAX_ZOOM ? (
@@ -65,9 +65,9 @@ const Header = ({ isDark, onToggleDark }: HeaderProps) => {
           </Button>
 
           <Button
-            variant="header"
             onClick={onToggleDark}
-            className="rounded-full flex items-center gap-2"
+            variant="header"
+            className="rounded-full flex items-center gap-2 hover:bg-[hsl(214_62%_53%)] hover:text-white"
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             <span>{isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}</span>
