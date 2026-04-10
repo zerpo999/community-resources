@@ -39,7 +39,7 @@ const Header = ({ isDark, onToggleDark }: HeaderProps) => {
             <img src="/icon.png" alt="Logo" className="h-8 w-8" />
           </div>
           <h1 className="text-lg font-bold text-foreground sm:text-xl">
-            Community Resource App
+            Community Resource Finder
           </h1>
         </div>
 
