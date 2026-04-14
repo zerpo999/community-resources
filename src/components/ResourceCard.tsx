@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   MapPin, Clock, DollarSign, ExternalLink, PhoneCall,
@@ -62,6 +62,23 @@ function formatHoursLines(hoursString: string): string[] {
 const ResourceCard = ({ resource, index }: ResourceCardProps) => {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [openNow, setOpenNow] = useState(() => isOpenNow(resource.hours));
+
+  // Real‑time update: re‑evaluate open/closed status every minute
+  useEffect(() => {
+    const updateOpenNow = () => {
+      setOpenNow(isOpenNow(resource.hours));
+    };
+
+    // Update immediately when hours change
+    updateOpenNow();
+
+    // Set up interval to check every minute (60000 ms)
+    const intervalId = setInterval(updateOpenNow, 60000);
+
+    // Cleanup interval on unmount or when resource.hours changes
+    return () => clearInterval(intervalId);
+  }, [resource.hours]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
@@ -71,7 +88,6 @@ const ResourceCard = ({ resource, index }: ResourceCardProps) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const openNow = useMemo(() => isOpenNow(resource.hours), [resource.hours]);
   const hoursLines = useMemo(() => formatHoursLines(resource.hours), [resource.hours]);
 
   // Format distance
@@ -101,6 +117,7 @@ const ResourceCard = ({ resource, index }: ResourceCardProps) => {
             <MapPin className="h-3.5 w-3.5" />
             {formattedDistance} mi
           </span>
+          {/* Real‑time open/closed indicator */}
           <span className={`flex items-center gap-1 ${openNow ? 'text-green-600' : 'text-red-500'}`}>
             <Clock className="h-3.5 w-3.5" />
             {openNow ? 'Open Now' : 'Closed'}

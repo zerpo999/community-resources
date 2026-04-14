@@ -4,9 +4,11 @@ import SearchBar from "@/components/SearchBar";
 import CategoryGrid from "@/components/CategoryGrid";
 import ResourceCard from "@/components/ResourceCard";
 import SuggestForm from "@/components/SuggestForm";
+import instructions from "@/components/instructions";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { motion } from "framer-motion";
 import { CATEGORIES, type Resource } from "@/types/resource";
+import Instructions from "@/components/instructions";
 
 const Index = () => {
   const { isDark, toggle } = useDarkMode();
@@ -107,6 +109,12 @@ const Index = () => {
               Search local community resources
             </motion.p>
             <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+          </div>
+        </section>
+
+        <section className="px-4 py-6">
+          <div className="mx-auto max-w-3xl">
+            <Instructions />
           </div>
         </section>
 
