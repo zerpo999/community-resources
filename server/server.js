@@ -9,7 +9,7 @@ app.use(express.json());
 
 const GOOGLE_API_KEY = process.env.GOOGLE_PLACES_API_KEY;
 
-// Geocode ZIP to lat/lng (add ", USA" to improve accuracy)
+// Geocode ZIP to lat/lng
 async function getCoordsFromZip(zip) {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${zip}, USA&key=${GOOGLE_API_KEY}`;
   const response = await axios.get(url);
@@ -39,9 +39,11 @@ app.get('/api/resources', async (req, res) => {
   }
 
   try {
+    // 1. Get coordinates of the ZIP
     const { lat, lng } = await getCoordsFromZip(zip);
-    const maxDistanceMiles = parseFloat(radius); // e.g., 10
+    const maxDistanceMiles = parseFloat(radius);
 
+    // 2. Search for places using Text Search (with location bias)
     const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(category)}&location=${lat},${lng}&radius=${maxDistanceMiles * 1609.34}&key=${GOOGLE_API_KEY}`;
     const searchRes = await axios.get(searchUrl);
 
@@ -52,6 +54,7 @@ app.get('/api/resources', async (req, res) => {
     const places = searchRes.data.results;
     const resources = [];
 
+    // 3. For each place, fetch details and calculate distance
     for (const place of places) {
       const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place.place_id}&fields=formatted_phone_number,website,opening_hours,formatted_address,geometry&key=${GOOGLE_API_KEY}`;
       const detailsRes = await axios.get(detailsUrl);
@@ -59,7 +62,7 @@ app.get('/api/resources', async (req, res) => {
 
       const distance = calculateDistance(lat, lng, place.geometry.location.lat, place.geometry.location.lng);
 
-      // Only include if within the requested radius
+      // ** Only include if within the requested radius **
       if (distance > maxDistanceMiles) {
         continue; // skip this result
       }
@@ -84,7 +87,7 @@ app.get('/api/resources', async (req, res) => {
       });
     }
 
-    // Optional: sort by distance (closest first)
+    // Sort by distance (closest first)
     resources.sort((a, b) => a.distance - b.distance);
 
     res.json({ resources });
@@ -93,3 +96,6 @@ app.get('/api/resources', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
