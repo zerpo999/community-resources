@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import CategoryGrid from "@/components/CategoryGrid";
 import ResourceCard from "@/components/ResourceCard";
 import SuggestForm from "@/components/SuggestForm";
-import instructions from "@/components/instructions";
 import { useDarkMode } from "@/hooks/use-dark-mode";
 import { motion } from "framer-motion";
 import { CATEGORIES, type Resource } from "@/types/resource";
@@ -19,8 +18,9 @@ const Index = () => {
   const [lastRadius, setLastRadius] = useState(10);
   const [resources, setResources] = useState<Resource[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  const DEFAULT_KEYWORD = "community resources";
+  const DEFAULT_KEYWORD = "community resources OR social services OR non-profit OR help near me";
 
   const handleSearch = async (zip: string, radius: number, categoryOverride?: string | null) => {
     const effectiveCategory = categoryOverride !== undefined ? categoryOverride : selectedCategory;
@@ -55,7 +55,7 @@ const Index = () => {
         id: place.id,
         name: place.name,
         address: place.address,
-        category: displayCategory,   // <-- shows actual category or "Community Resource"
+        category: place.category,   // <-- shows actual category or "Community Resource"
         hours: place.hours || "Hours not specified",
         fees: place.fees || "Call for information",
         distance: place.distance,
@@ -85,6 +85,12 @@ const Index = () => {
     }
   };
 
+  useEffect(() => {
+    if (hasSearched && !isLoading) {
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [hasSearched, isLoading]);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header isDark={isDark} onToggleDark={toggle} />
@@ -106,24 +112,26 @@ const Index = () => {
               transition={{ delay: 0.1 }}
               className="mb-6 text-muted-foreground"
             >
-              Search local community resources
+              Enter Zip Code to find local community resources
+              <br></br>
+              Then click Search to begin!
             </motion.p>
             <SearchBar onSearch={handleSearch} isLoading={isLoading} />
           </div>
         </section>
 
-        <section className="px-4 py-6">
+        {/* <section className="px-4 py-6">
           <div className="mx-auto max-w-3xl">
             <Instructions />
           </div>
-        </section>
+        </section> */}
 
         <section className="px-4 py-8">
           <CategoryGrid selectedCategory={selectedCategory} onSelect={handleCategorySelect} />
         </section>
 
         {hasSearched && (
-          <section className="border-t border-border px-4 py-8">
+          <section className="border-t border-border px-4 py-8" ref={resultsRef}>
             <div className="mx-auto max-w-3xl">
               <div className="mb-4 flex items-center justify-between">
                 <p className="text-sm text-muted-foreground">
@@ -169,7 +177,7 @@ const Index = () => {
             <img src="/icon.png" alt="Logo" className="h-5 w-5" />
             Community Resource Finder
           </div>
-          <SuggestForm />
+          {/* <SuggestForm />  still in progress */} 
         </div>
       </footer>
     </div>

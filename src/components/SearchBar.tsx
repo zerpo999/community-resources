@@ -81,6 +81,7 @@ const SearchBar = ({ onSearch, isLoading }: SearchBarProps) => {
               <SelectItem value="10">10 miles</SelectItem>
               <SelectItem value="15">15 miles</SelectItem>
               <SelectItem value="25">25 miles</SelectItem>
+              <SelectItem value="50">50 miles</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -94,9 +95,12 @@ const SearchBar = ({ onSearch, isLoading }: SearchBarProps) => {
             {locating ? <Loader2 className="h-4 w-4 animate-spin" /> : <LocateFixed className="h-4 w-4" />}
             <span className="hidden sm:inline">My Location</span>
           </Button>
-          <Button onClick={handleSearch} disabled={zip.length < 5 || isLoading} className="gap-1.5">
-            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-            Search
+          <Button 
+            onClick={handleSearch} 
+            disabled={zip.length < 5 || isLoading} 
+            className="gap-1.5">
+            {isLoading ? <Loader2 className="h-4 w-4 animate-spin"/> : <Search className="h-4 w-4" />}
+            {isLoading ? "Searching..." : <span className="hidden sm:inline">Search</span>}
           </Button>
         </div>
       </div>

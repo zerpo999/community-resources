@@ -1,14 +1,25 @@
 import { motion } from "framer-motion";
 import {
-  UtensilsCrossed, Heart, Home, Siren, Users, Accessibility,
+  UtensilsCrossed, Home, Siren, Users, Accessibility,
   DollarSign, Bus, GraduationCap, Scale, Phone, Wifi,
+  Stethoscope, Sparkles, AlertTriangle, HelpCircle,
 } from "lucide-react";
 import { CATEGORIES } from "@/types/resource";
-import { text } from "stream/consumers";
 
-const iconMap: Record<string, React.ElementType> = {
-  UtensilsCrossed, Heart, Home, Siren, Users, Accessibility,
-  DollarSign, Bus, GraduationCap, Scale, Phone, Wifi,
+// Map category labels to icons
+const labelIconMap: Record<string, React.ElementType> = {
+  "Food Assistance": UtensilsCrossed,
+  "Healthcare": Stethoscope,
+  "Housing": Home,
+  "Emergencies": Siren,
+  "Seniors": Users,
+  "Disabilities": Accessibility,
+  "Financial Help": DollarSign,
+  "Transportation": Bus,
+  "Youth": Sparkles,
+  "Legal Services": Scale,
+  "Crisis": AlertTriangle,
+  "Digital Resources": Wifi,
 };
 
 interface CategoryGridProps {
@@ -19,19 +30,18 @@ interface CategoryGridProps {
 const CategoryGrid = ({ selectedCategory, onSelect }: CategoryGridProps) => {
   return (
     <div className="w-full max-w-8xl mx-auto px-4">
-      <h2 className="mb-4 text-center text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-        Filter by Category
+      <h2 className="mb-4 text-center text-sm font-semibold tracking-wider text-muted-foreground">
+        Looking for something specific? Filter by category to find resources that best fit your needs.
       </h2>
 
-      {/* Explicit column counts at breakpoints */}
       <div className="grid gap-3 grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12">
         {CATEGORIES.map((cat, i) => {
-          const Icon = iconMap[cat.icon] || Heart;
+          const Icon = labelIconMap[cat.label] || HelpCircle;
           const isSelected = selectedCategory === cat.label;
 
           return (
             <motion.button
-              key={cat.id}
+              key={cat.label}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.03, duration: 0.3 }}
@@ -45,14 +55,13 @@ const CategoryGrid = ({ selectedCategory, onSelect }: CategoryGridProps) => {
                 }`}
             >
               <Icon
-                className={`h-5 w-5 transition-colors text-white ${
-                  isSelected ? "text-[hsl(214_62%_53%)]" : "text-[hsl(220_10%_88%)]"
+                className={`h-5 w-5 transition-colors ${
+                  isSelected ? "text-primary" : "text-white"
                 }`}
               />
-
               <span
                 className={`text-center text-[11px] font-medium leading-tight ${
-                  isSelected ? "text-[hsl(214_62%_43%)]" : "text-[hsl(220_10%_88%)]"
+                  isSelected ? "text-primary" : "text-white"
                 }`}
               >
                 {cat.label}

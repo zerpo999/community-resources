@@ -109,10 +109,7 @@ const ResourceCard = ({ resource, index }: ResourceCardProps) => {
           {resource.category}
         </Badge>
       </div>
-
-      {/* Collapsed info: distance, open now, fees, and buttons */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+      <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <MapPin className="h-3.5 w-3.5" />
             {formattedDistance} mi
@@ -127,25 +124,28 @@ const ResourceCard = ({ resource, index }: ResourceCardProps) => {
             {resource.fees}
           </span>
         </div>
+      <div className="mt-2"></div>
 
+      {/* Collapsed info: distance, open now, fees, and buttons */}
+      <div className="items-center justify-between gap-3">
         {/* Action buttons row */}
         <div className="flex flex-wrap gap-2">
           {resource.website ? (
-            <Button size="sm" variant="default" className="gap-1.5" asChild>
+            <Button size="sm" variant="website" className="gap-1.5" asChild>
               <a href={resource.website} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Website</span>
               </a>
             </Button>
           ) : (
-            <Button size="sm" variant="default" className="gap-1.5" disabled>
+            <Button size="sm" variant="website" className="gap-1.5" disabled>
               <ExternalLink className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">No Website</span>
             </Button>
           )}
 
           {resource.phone ? (
-            <Button size="sm" variant="outline" className="gap-1.5" asChild>
+            <Button size="sm" variant="call" className="gap-1.5" asChild>
               <a href={`tel:${resource.phone}`}>
                 <PhoneCall className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Call</span>
@@ -158,14 +158,14 @@ const ResourceCard = ({ resource, index }: ResourceCardProps) => {
             </Button>
           )}
 
-          <Button size="sm" variant="ghost" className="gap-1.5" onClick={handleCopy}>
+          <Button size="sm" variant="website" className="gap-1.5" onClick={handleCopy}>
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
           </Button>
 
           <Button
             size="sm"
-            variant="ghost"
+            variant="more"
             className="gap-1"
             onClick={() => setExpanded(!expanded)}
           >
