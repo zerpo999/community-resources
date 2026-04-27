@@ -22,6 +22,8 @@ const Index = () => {
 
   const DEFAULT_KEYWORD = "community resources OR social services OR non-profit OR help near me";
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
   const handleSearch = async (zip: string, radius: number, categoryOverride?: string | null) => {
     const effectiveCategory = categoryOverride !== undefined ? categoryOverride : selectedCategory;
     
@@ -41,7 +43,7 @@ const Index = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/resources?zip=${encodeURIComponent(zip)}&category=${encodeURIComponent(keyword)}&radius=${radius}`
+        `${API_BASE_URL}/api/resources?zip=${encodeURIComponent(zip)}&category=${encodeURIComponent(keyword)}&radius=${radius}`
       );
 
       if (!response.ok) {
