@@ -20,8 +20,8 @@ export interface Category {
 }
 
 export const CATEGORIES = [
-  { label: "Food Assistance", keyword: "food bank OR food pantry OR soup kitchen OR EBT OR meals on wheels OR food drive OR free food OR food stamps OR aliments OR nonperishable OR community kitchen OR food distribution" },
-  { label: "Healthcare", keyword: "free clinic OR community health center OR mental health clinic OR free testing OR vaccination OR clinic OR low cost doctor OR wellness center OR cheap doctors OR mental health OR destress OR wellbeing OR community health" },
+  { label: "Food Assistance", keyword: "food bank OR food pantry OR soup kitchen OR EBT OR meals on wheels OR food drive OR free food OR food stamps OR aliments OR nonperishable OR community kitchen OR food distribution OR SNAP" },
+  { label: "Healthcare", keyword: "free clinic OR community health center OR mental health clinic OR free testing OR vaccination OR clinic OR low cost doctor OR wellness center OR cheap doctors OR mental health OR destress OR wellbeing OR community health OR medicaid" },
   { label: "Housing", keyword: "homeless shelter OR emergency housing OR rental assistance OR housing authority OR realtor OR low income housing" },
   { label: "Emergencies", keyword: "hospital OR emergency room OR crisis hotline OR urgent care OR police OR fire station OR suicide prevention" },
   { label: "Seniors", keyword: "senior center OR assisted living OR home care aide OR caregiver OR senior transportation OR meals on wheels OR senior services OR CNA OR senior care OR transportation for seniors OR veteran OR veteran services" },
